@@ -5,10 +5,12 @@
     include "templates/cabecera.php";
 ?>
         <br>
+        <?php  if ($mensaje != ""): ?>
         <div class="alert alert-success" role="alert">
             <?php echo $mensaje; ?>
             <a href="mostrarCarrito.php" class="badge badge-success">Ver Carrito</a>    
         </div>
+        <?php endif; ?>
         <div class="row">
             <?php 
                 $statement = $pdo->prepare("SELECT * FROM tblproductos");

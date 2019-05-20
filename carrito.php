@@ -36,17 +36,25 @@
                         'cantidad' => $cantidad
                     );
                     $_SESSION['carrito'][0] = $producto;
+                    $mensaje = "Producto agregado al carrito";
                 } else {
-                    $numeroProductos = count($_SESSION['carrito']);
-                    $producto = array(
-                        'id' => $id,
-                        'nombre' => $nombre,
-                        'precio' => $precio,
-                        'cantidad' => $cantidad
-                    );
-                    $_SESSION['carrito'][$numeroProductos] = $producto;
+                    $idProductos = array_column($_SESSION['carrito'], 'id');
+                    if (in_array($id, $idProductos)) {
+                        echo '<script>console.log("El producto ya ha sido seleccionado");</script>';
+                        $mensaje = "";
+                    } else {
+                        $numeroProductos = count($_SESSION['carrito']);
+                        $producto = array(
+                            'id' => $id,
+                            'nombre' => $nombre,
+                            'precio' => $precio,
+                            'cantidad' => $cantidad
+                        );
+                        $_SESSION['carrito'][$numeroProductos] = $producto;
+                        $mensaje = "Producto agregado al carrito";
+                    }
                 }
-                $mensaje = print_r($_SESSION, true);
+                // $mensaje = print_r($_SESSION, true);
             break;
             case "Eliminar":
                 if (is_numeric(openssl_decrypt($_POST['id'], COD, KEY))) {
